@@ -1,25 +1,19 @@
 package test;
 
-import springbook.user.dao.NUserDao;
+import java.sql.SQLException;
+
+import springbook.user.dao.UserDao;
 import springbook.user.domain.User;
 
 public class SimpleTest {
 
-	public static void main(String[] args) throws Exception {
-		NUserDao nDao = new NUserDao();
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		UserDao dao = new UserDao();
 		User user = new User();
-		user.setId("id4");
-		user.setName("이름");
-		user.setPassword("비번");
-		nDao.add(user);
-		User user2 = nDao.get(user.getId());
-		System.out.println(user2.getId());
-		System.out.println(user2.getName());
-		System.out.println(user2.getPassword());
+		user.setId("id");
+		user.setName("name");
+		user.setPassword("password");
 		
-		
-		
-		
-		
+		dao.add(user);
 	}
 }
