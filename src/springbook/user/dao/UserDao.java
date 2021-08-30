@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import springbook.user.domain.User;
 
-public class UserDao {
+public abstract class UserDao {
 
 	public void add(User user) throws ClassNotFoundException, SQLException {
 		/*
@@ -48,23 +48,5 @@ public class UserDao {
 		return user;
 	}
 
-	private Connection getConnection() throws ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		return DriverManager.getConnection("jdbc:mysql://34.64.107.165/shock_spring_db?useSSL=true", "shock_user", "1205cnlcla@@");
-	}
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		String id = "id12";
-		
-		UserDao dao = new UserDao();
-		
-		User user = new User();
-		user.setId(id);
-		user.setName("이름");
-		user.setPassword("비번");
-	
-		dao.add(user);
-		user = dao.get(id);
-		
-		System.out.println(user);
-	}
+	public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
 }
