@@ -19,8 +19,8 @@ public class UserDao {
 		 * 작업 중에 생성된 Connection, Statement, ResultSet 같은 리소스는 작업을 마친 후 반드시 닫아준다.
 		 * JDBC API가 만들어내느 예외를 잡아서 직접 처리하거나, 메소드에 throws를 선언해서 예외 발생시 메소드 밖으로 던지게 한다.
 		 */
-		Class.forName("com.mysql.jdbc.Drive");
-		Connection c = DriverManager.getConnection("jdbc:mysql://34.64.107.165/shock_spring_db", "shock_user", "1205cnlcla@@");
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection c = DriverManager.getConnection("jdbc:mysql://34.64.107.165/shock_spring_db?useSSL=true", "shock_user", "1205cnlcla@@");
 		PreparedStatement ps = c.prepareStatement("INSERT INTO users(id, name, password) VALUES(?, ?, ?)");
 		ps.setString(1, user.getId());
 		ps.setString(2, user.getName());
@@ -32,8 +32,8 @@ public class UserDao {
 	}
 	
 	public User get(String id) throws ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.cj.jdbc.Drive");
-		Connection c = DriverManager.getConnection("jdbc:mysql://34.64.107.165/shock_spring_db", "shock_user", "1205cnlcla@@");
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection c = DriverManager.getConnection("jdbc:mysql://34.64.107.165/shock_spring_db?useSSL=true", "shock_user", "1205cnlcla@@");
 		PreparedStatement ps = c.prepareStatement("SELECT * FROM users WHERE id = ?");
 		ps.setString(1, id);
 		ResultSet rs = ps.executeQuery();
@@ -48,5 +48,21 @@ public class UserDao {
 		c.close();
 		
 		return user;
+	}
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		String id = "id11";
+		
+		UserDao dao = new UserDao();
+		
+		User user = new User();
+		user.setId(id);
+		user.setName("이름");
+		user.setPassword("비번");
+	
+		dao.add(user);
+		user = dao.get(id);
+		
+		System.out.println(user);
 	}
 }
