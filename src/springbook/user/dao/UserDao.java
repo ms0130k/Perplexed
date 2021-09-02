@@ -13,6 +13,7 @@ public class UserDao {
 	public void setConnectionMaker(ConnectionMaker connectionMaker) {
 		this.connectionMaker = connectionMaker;
 	}
+
 	public void add(User user) throws ClassNotFoundException, SQLException {
 		Connection c = getConnection();
 		PreparedStatement ps = c.prepareStatement("INSERT INTO users(id, name, password) VALUES(?, ?, ?)");
