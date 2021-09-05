@@ -14,7 +14,6 @@ public class UserDaoTest {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		ApplicationContext context;
 		context = new GenericXmlApplicationContext("applicationContext.xml");
-		context = new ClassPathXmlApplicationContext("applicationContext.xml", UserDao.class);
 		UserDao dao = context.getBean("userDao", UserDao.class);
 		dao = (UserDao) context.getBean("userDao");
 		dao.deleteAll();
