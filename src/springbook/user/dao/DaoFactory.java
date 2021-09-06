@@ -1,5 +1,7 @@
 package springbook.user.dao;
 
+import java.sql.Driver;
+
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -25,7 +27,11 @@ public class DaoFactory {
 //	}
 	@Bean
 	public DataSource dataSource() {
-		DataSource dataSource = new SimpleDriverDataSource(Class.forName(JDBCInfo.DRIVER_CLASS.getValue()), JDBCInfo.URL.getValue(), JDBCInfo.USERNAME.getValue(), JDBCInfo.PASSWORD.getValue());
+		SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+		dataSource.setDriverClass(com.mysql.cj.jdbc.Driver.class);
+		dataSource.setUrl(JDBCInfo.URL.getValue());
+		dataSource.setUsername(JDBCInfo.USERNAME.getValue());
+		dataSource.setPassword(JDBCInfo.PASSWORD.getValue());
 		return dataSource;
 	}
 }
