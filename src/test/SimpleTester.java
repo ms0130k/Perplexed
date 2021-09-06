@@ -1,14 +1,11 @@
 package test;
 
+import springbook.user.domain.JDBCInfo;
+
 public class SimpleTester {
 	
 	public static void main(String[] args) {
-		SimpleSingleton s0 = SimpleSingleton.getInstance();
-		SimpleSingleton s1 = SimpleSingleton.getInstance();
-		SimpleSingleton s2 = SimpleSingleton.getInstance();
-		
-		System.out.println(s0);
-		System.out.println(s1);
-		System.out.println(s2);
+		System.out.println(JDBCInfo.URL.valueOf("URL"));
+		String url = "";
 	}
 }
