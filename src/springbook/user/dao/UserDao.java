@@ -12,10 +12,6 @@ import springbook.user.domain.User;
 public class UserDao {
 	DataSource dataSource;
 	
-	public UserDao(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
-
 	public void add(User user) throws ClassNotFoundException, SQLException {
 		Connection c = dataSource.getConnection();
 		PreparedStatement ps = c.prepareStatement("INSERT INTO users(id, name, password) VALUES(?, ?, ?)");
@@ -50,5 +46,9 @@ public class UserDao {
 		Connection c = dataSource.getConnection();
 		PreparedStatement ps = c.prepareStatement("DELETE FROM users");
 		return ps.executeUpdate();
+	}
+	
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 }

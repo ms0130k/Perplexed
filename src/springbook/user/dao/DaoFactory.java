@@ -10,11 +10,11 @@ import springbook.user.domain.JDBCInfo;
 
 @Configuration
 public class DaoFactory {
-	@Bean
-	public UserDao userDao() {
-		UserDao userDao = new UserDao(dataSource());
-		return userDao;
-	}
+//	@Bean
+//	public UserDao userDao() {
+//		UserDao userDao = new UserDao(dataSource());
+//		return userDao;
+//	}
 //	@Bean
 //	public ConnectionMaker connectionMaker() {
 //		return new CountingConnectionMaker(realConnectionMaker());
