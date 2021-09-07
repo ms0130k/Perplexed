@@ -26,16 +26,13 @@ public class UserDaoTest {
 	private User user2;
 	private User user3;
 	
-	public static void main(String[] args) {
-		JUnitCore.main("test.UserDaoTest");
-	}
-
 	@Before
 	public void setUp() {
 		user1 = new User("shock1", "동현1", "비번1");
 		user2 = new User("shock2", "동현2", "비번2");
 		user3 = new User("shock3", "동현3", "비번3");
 	}
+	
 	@Test
 	public void addAndGet() throws SQLException {
 		dao.deleteAll();
