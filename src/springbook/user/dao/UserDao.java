@@ -12,7 +12,7 @@ import springbook.user.domain.User;
 public class UserDao {
 	DataSource dataSource;
 	
-	public void add(User user) throws ClassNotFoundException, SQLException {
+	public void add(User user) throws SQLException {
 		Connection c = dataSource.getConnection();
 		PreparedStatement ps = c.prepareStatement("INSERT INTO users(id, name, password) VALUES(?, ?, ?)");
 		ps.setString(1, user.getId());
@@ -24,7 +24,7 @@ public class UserDao {
 		c.close();
 	}
 	
-	public User get(String id) throws ClassNotFoundException, SQLException {
+	public User get(String id) throws SQLException {
 		Connection c = dataSource.getConnection();
 		PreparedStatement ps = c.prepareStatement("SELECT * FROM users WHERE id = ?");
 		ps.setString(1, id);
@@ -42,7 +42,7 @@ public class UserDao {
 		return user;
 	}
 	
-	public int deleteAll() throws ClassNotFoundException, SQLException {
+	public int deleteAll() throws SQLException {
 		Connection c = dataSource.getConnection();
 		PreparedStatement ps = c.prepareStatement("DELETE FROM users");
 		return ps.executeUpdate();

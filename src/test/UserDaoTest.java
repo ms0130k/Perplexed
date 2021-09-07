@@ -2,6 +2,8 @@ package test;
 
 import java.sql.SQLException;
 
+import org.junit.Test;
+import org.junit.runner.JUnitCore;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
@@ -9,23 +11,23 @@ import springbook.user.dao.UserDao;
 import springbook.user.domain.User;
 
 public class UserDaoTest {
+	
+	public static void main(String[] args) {
+		JUnitCore.main("test.UserDaoTest");
+	}
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		ApplicationContext context;
-		context = new GenericXmlApplicationContext("applicationContext.xml");
-//		context = new AnnotationConfigApplicationContext(DaoFactory.class);
+	@Test
+	public void addAndGet() throws SQLException {
+		ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+		
 		UserDao dao = context.getBean("userDao", UserDao.class);
-		dao = (UserDao) context.getBean("userDao");
-		dao.deleteAll();
-		dao.deleteAll();
-		dao.deleteAll();
-		dao.deleteAll();
 		dao.deleteAll();
 		User user = new User();
-		user.setId("아이디");
-		user.setName("이름");
-		user.setPassword("비밀번호");
+		user.setId("shock");
+		user.setName("쇽쇽");
+		user.setPassword("1q2w3e4r");
 		dao.add(user);
-		System.out.println(dao.get("아이디"));
+		
+		User user2 = dao.get("shock");
 	}
 }
