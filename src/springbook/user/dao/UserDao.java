@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+
 import springbook.user.domain.User;
 
 public class UserDao {
@@ -29,23 +31,51 @@ public class UserDao {
 		PreparedStatement ps = c.prepareStatement("SELECT * FROM users WHERE id = ?");
 		ps.setString(1, id);
 		ResultSet rs = ps.executeQuery();
-		rs.next();
-		User user = new User();
-		user.setId(rs.getString("id"));
-		user.setName(rs.getString("name"));
-		user.setPassword(rs.getString("password"));
+		User user = null;
+		if (rs.next()) {
+			user = new User();
+			user.setId(rs.getString("id"));
+			user.setName(rs.getString("name"));
+			user.setPassword(rs.getString("password"));
+		}
 		
 		rs.close();
 		ps.close();
 		c.close();
 		
+		if (user == null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		
 		return user;
 	}
 	
 	public int deleteAll() throws SQLException {
+		int result = 0;
 		Connection c = dataSource.getConnection();
 		PreparedStatement ps = c.prepareStatement("DELETE FROM users");
-		return ps.executeUpdate();
+		result = ps.executeUpdate();
+		
+		ps.close();
+		c.close();
+		return result;
+	}
+	
+	public int getCount() throws SQLException {
+		int result = 0;
+		Connection c = dataSource.getConnection();
+		
+		PreparedStatement ps = c.prepareStatement("SELECT count(*) FROM users");
+		
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		result = rs.getInt(1);
+		
+		rs.close();
+		ps.close();
+		c.close();
+		
+		return result;
 	}
 	
 	public void setDataSource(DataSource dataSource) {
