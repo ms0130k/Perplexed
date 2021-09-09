@@ -5,8 +5,6 @@ import static org.junit.Assert.assertThat;
 
 import java.sql.SQLException;
 
-import javax.sql.DataSource;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,11 +19,10 @@ import springbook.user.dao.UserDao;
 import springbook.user.domain.JDBCInfo;
 import springbook.user.domain.User;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/test-applicationContext.xml")
-@DirtiesContext
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = "/test-applicationContext.xml")
+//@DirtiesContext
 public class UserDaoTest {
-	@Autowired
 	private UserDao dao;
 	private User user1;
 	private User user2;
@@ -37,6 +34,7 @@ public class UserDaoTest {
 		user2 = new User("shock2", "동현2", "비번2");
 		user3 = new User("shock3", "동현3", "비번3");
 		
+		dao = new UserDao();
 		SingleConnectionDataSource dataSource = new SingleConnectionDataSource(JDBCInfo.URL.getValue(), JDBCInfo.USERNAME.getValue(), JDBCInfo.PASSWORD.getValue(), true);
 		dao.setDataSource(dataSource);
 	}
